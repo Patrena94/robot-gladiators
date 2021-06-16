@@ -26,14 +26,15 @@ var confirmSkip = window.confirm("Are you sure you'd like to quit?");
 if (confirmSkip) {
 window.alert(playerName + ' has decided to skip this fight. Goodbye!');
 // subtract money from playerMoney for skipping
-playerMoney = playerMoney - 10;
+playerMoney = Math.max(0,playerMoney-10);
 console.log("playerMoney", playerMoney);
 break;
 }
 }
 
 // remove enemy's health by subtracting the amount set in the playerAttack variable
-enemyHealth = enemyHealth - playerAttack;
+var damage = randomNumber(playerAttack -3, playerAttack);
+enemyHealth = Math.max(0,enemyHealth-damage);
 console.log(
 playerName + ' attacked ' + enemyName + '. ' + enemyName + ' now has ' + enemyHealth + ' health remaining.'
 );
@@ -51,7 +52,8 @@ break;
 window.alert(enemyName + ' still has ' + enemyHealth + ' health left.');
 }
 // remove players's health by subtracting the amount set in the enemyAttack variable
-playerHealth = playerHealth - enemyAttack;
+var damage = randomNumber (enemyAggack - 3, enemyAttack); playerHealth = Math.max(0,playerHealth - damage);
+
 console.log(
 enemyName + ' attacked ' + playerName + '. ' + playerName + ' now has ' + playerHealth + ' health remaining.'
 );
@@ -69,8 +71,8 @@ break;
 
 // fight each enemy-robot by looping over them and fighting them one at a time
 var startGame = function () {
-for (var i = 0; i < enemyNames.length; i++) {
- //reset player stats
+for (var i = 0; i < enemyNames.length; i++) { randomNumber();
+
  PlayerHealth = 100;
  PlayerAttack = 10;
  PlayerMoney = 10;
@@ -83,7 +85,12 @@ for (var i = 0; i < enemyNames.length; i++) {
  var pickedEnemyName = enemyNames[i];
 
  // reset enemyHealth before starting new fight
- enemyHealth = 50;
+ enemyHealth = randomNumber (40, 60);
+//function to generate a random numeric value
+var randomNumber = function (min,max){ var value = Math.floor(Math.random() *(max - min+1)
+  + min);
+  return value;
+}
   // use debugger to pause script from running and check what's going on at that moment in the code   // debugger;
 
  // pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
